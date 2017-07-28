@@ -28,9 +28,12 @@ void MPU9250::begin() {
 
   I2CwriteByte(address, 27, GYRO_FULL_SCALE_2000_DPS);
   I2CwriteByte(address, 28, ACC_FULL_SCALE_16_G);
-  I2CwriteByte(address, 0x37, 0x02);
   I2CwriteByte(MAG_ADDRESS, 0x0A, 1 << 4 || 0x02);
   delay(10);
+}
+
+void MPU9250::beginMagnetometer() {
+  I2CwriteByte(address, 0x37, 0x02);
 }
 
 void MPU9250::accelUpdate() {

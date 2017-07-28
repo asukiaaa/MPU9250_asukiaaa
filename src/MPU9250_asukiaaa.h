@@ -21,6 +21,7 @@ class MPU9250 {
   public:
   MPU9250(uint8_t address = (uint8_t) MPU9250_ADDRESS_AD0_LOW);
   void begin();
+  void beginMagnetometer();
   void accelUpdate();
   float accelX();
   float accelY();
