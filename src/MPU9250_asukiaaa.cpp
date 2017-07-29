@@ -31,8 +31,20 @@ void MPU9250::beginMagnetometer(uint8_t mode) {
   Wire.begin();
   delay(10);
 
+  // read adjust values
   I2CwriteByte(address, 0x37, 0x02);
   delay(10);
+  magSetMode(0x00);
+  magSetMode(AK8963_MODE_FUSEROM);
+  uint8_t buff[3];
+  I2Cread(MAG_ADDRESS, AK8963_RA_ASAX, 3, buff);
+  magXAdjust = buff[0];
+  magYAdjust = buff[1];
+  magZAdjust = buff[2];
+  Serial.println(magXAdjust);
+  Serial.println(magYAdjust);
+  Serial.println(magZAdjust);
+
   magSetMode(0x00);
   magSetMode(mode);
 }
@@ -50,16 +62,20 @@ int16_t MPU9250::magGet(uint8_t highIndex, uint8_t lowIndex) {
   return (((int16_t)magBuf[highIndex]) << 8) | magBuf[lowIndex];
 }
 
+uint16_t adjustMagValue(int16_t value, uint8_t adjust) {
+  return (value * ((((adjust - 128) * 0.5) / 128) + 1));
+}
+
 int16_t MPU9250::magX() {
-  return magGet(1, 0) + magXOffset;
+  return adjustMagValue(magGet(1, 0), magXAdjust) + magXOffset;
 }
 
 int16_t MPU9250::magY() {
-  return magGet(3, 2) + magYOffset;
+  return adjustMagValue(magGet(3, 2), magYAdjust) + magYOffset;
 }
 
 int16_t MPU9250::magZ() {
-  return magGet(5, 4) + magZOffset;
+  return adjustMagValue(magGet(5, 4), magZAdjust) + magZOffset;
 }
 
 void MPU9250::accelUpdate() {

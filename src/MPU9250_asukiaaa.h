@@ -19,6 +19,7 @@
 
 #define AK8963_RA_HXL                   0x03
 #define AK8963_RA_CNTL1                 0x0A
+#define AK8963_RA_ASAX                  0x10
 
 #define AK8963_MODE_POWERDOWN           0x0
 #define AK8963_MODE_SINGLE              0x1
@@ -55,6 +56,7 @@ class MPU9250 {
   uint8_t address;
   uint8_t accelBuf[14];
   uint8_t magBuf[7];
+  uint8_t magXAdjust, magYAdjust, magZAdjust;
   float accelGet(uint8_t highIndex, uint8_t lowIndex);
   int16_t magGet(uint8_t highIndex, uint8_t lowIndex);
 };
