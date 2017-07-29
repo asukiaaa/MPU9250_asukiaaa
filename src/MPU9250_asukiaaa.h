@@ -17,21 +17,46 @@
 #define ACC_FULL_SCALE_8_G       0x10
 #define ACC_FULL_SCALE_16_G      0x18
 
+#define AK8963_RA_HXL                   0x03
+#define AK8963_RA_CNTL1                 0x0A
+
+#define AK8963_MODE_POWERDOWN           0x0
+#define AK8963_MODE_SINGLE              0x1
+#define AK8963_MODE_CONTINUOUS_8HZ      0x2
+#define AK8963_MODE_EXTERNAL            0x4
+#define AK8963_MODE_CONTINUOUS_100HZ    0x6
+#define AK8963_MODE_SELFTEST            0x8
+#define AK8963_MODE_FUSEROM             0xF
+
 class MPU9250 {
   public:
-  MPU9250(uint8_t address = (uint8_t) MPU9250_ADDRESS_AD0_LOW);
+  int16_t magXOffset, magYOffset, magZOffset;
+
+  MPU9250(uint8_t address = (uint8_t) MPU9250_ADDRESS_AD0_LOW):
+    address(address),
+    magXOffset(0),
+    magYOffset(0),
+    magZOffset(0) {};
   void begin();
-  void beginMagnetometer();
   void accelUpdate();
   float accelX();
   float accelY();
   float accelZ();
   float accelSqrt();
 
+  void beginMagnetometer(uint8_t mode = AK8963_MODE_CONTINUOUS_8HZ);
+  void magUpdate();
+  int16_t magX();
+  int16_t magY();
+  int16_t magZ();
+  void magSetMode(uint8_t mode);
+
   private:
   uint8_t address;
   uint8_t accelBuf[14];
+  uint8_t magBuf[7];
   float accelGet(uint8_t highIndex, uint8_t lowIndex);
+  int16_t magGet(uint8_t highIndex, uint8_t lowIndex);
 };
 
 #endif
