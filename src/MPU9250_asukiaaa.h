@@ -59,6 +59,7 @@ class MPU9250 {
   uint8_t magXAdjust, magYAdjust, magZAdjust;
   float accelGet(uint8_t highIndex, uint8_t lowIndex);
   int16_t magGet(uint8_t highIndex, uint8_t lowIndex);
+  void magReadAdjustValues();
 };
 
 #endif

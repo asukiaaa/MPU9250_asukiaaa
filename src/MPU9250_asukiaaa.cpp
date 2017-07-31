@@ -27,25 +27,26 @@ void MPU9250::begin() {
   delay(10);
 }
 
-void MPU9250::beginMagnetometer(uint8_t mode) {
-  Wire.begin();
-  delay(10);
-
-  // read adjust values
-  I2CwriteByte(address, 0x37, 0x02);
-  delay(10);
-  magSetMode(0x00);
+void MPU9250::magReadAdjustValues() {
+  magSetMode(AK8963_MODE_POWERDOWN);
   magSetMode(AK8963_MODE_FUSEROM);
   uint8_t buff[3];
   I2Cread(MAG_ADDRESS, AK8963_RA_ASAX, 3, buff);
   magXAdjust = buff[0];
   magYAdjust = buff[1];
   magZAdjust = buff[2];
-  Serial.println(magXAdjust);
-  Serial.println(magYAdjust);
-  Serial.println(magZAdjust);
+}
 
-  magSetMode(0x00);
+void MPU9250::beginMagnetometer(uint8_t mode) {
+  Wire.begin();
+  delay(10);
+
+  // trun on magnetometor
+  I2CwriteByte(address, 0x37, 0x02);
+  delay(10);
+
+  magReadAdjustValues();
+  magSetMode(AK8963_MODE_POWERDOWN);
   magSetMode(mode);
 }
 
