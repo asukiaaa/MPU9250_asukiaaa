@@ -21,7 +21,7 @@ void MPU9250::setWire(TwoWire* wire) {
   myWire = wire;
 }
 
-void MPU9250::begin() {
+void MPU9250::beginAccel() {
   delay(40);
 
   I2CwriteByte(address, 27, GYRO_FULL_SCALE_2000_DPS);
@@ -39,7 +39,7 @@ void MPU9250::magReadAdjustValues() {
   magZAdjust = buff[2];
 }
 
-void MPU9250::beginMagnetometer(uint8_t mode) {
+void MPU9250::beginMag(uint8_t mode) {
   delay(10);
 
   // trun on magnetometor

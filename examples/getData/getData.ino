@@ -5,10 +5,12 @@ MPU9250 mySensor;
 void setup() {
   while(!Serial);
   Serial.begin(115200);
+
   Wire.begin();
   mySensor.setWire(&Wire);
-  mySensor.begin();
-  mySensor.beginMagnetometer();
+
+  mySensor.beginAccel();
+  mySensor.beginMag();
 
   // you can set your own offset for mag values
   // mySensor.magXOffset = -50;

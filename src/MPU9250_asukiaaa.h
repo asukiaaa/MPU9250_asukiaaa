@@ -39,14 +39,15 @@ class MPU9250 {
     magYOffset(0),
     magZOffset(0) {};
   void setWire(TwoWire *wire);
-  void begin();
+
+  void beginAccel();
   void accelUpdate();
   float accelX();
   float accelY();
   float accelZ();
   float accelSqrt();
 
-  void beginMagnetometer(uint8_t mode = AK8963_MODE_CONTINUOUS_8HZ);
+  void beginMag(uint8_t mode = AK8963_MODE_CONTINUOUS_8HZ);
   void magUpdate();
   int16_t magX();
   int16_t magY();
