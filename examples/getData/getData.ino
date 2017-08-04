@@ -5,6 +5,8 @@ MPU9250 mySensor;
 void setup() {
   while(!Serial);
   Serial.begin(115200);
+  Wire.begin();
+  mySensor.setWire(&Wire);
   mySensor.begin();
   mySensor.beginMagnetometer();
 

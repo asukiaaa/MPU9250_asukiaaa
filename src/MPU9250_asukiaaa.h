@@ -38,6 +38,7 @@ class MPU9250 {
     magXOffset(0),
     magYOffset(0),
     magZOffset(0) {};
+  void setWire(TwoWire *wire);
   void begin();
   void accelUpdate();
   float accelX();
@@ -53,6 +54,7 @@ class MPU9250 {
   void magSetMode(uint8_t mode);
 
   private:
+  TwoWire* myWire;
   uint8_t address;
   uint8_t accelBuf[14];
   uint8_t magBuf[7];
@@ -60,6 +62,8 @@ class MPU9250 {
   float accelGet(uint8_t highIndex, uint8_t lowIndex);
   int16_t magGet(uint8_t highIndex, uint8_t lowIndex);
   void magReadAdjustValues();
+  void I2Cread(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data);
+  void I2CwriteByte(uint8_t Address, uint8_t Register, uint8_t Data);
 };
 
 #endif

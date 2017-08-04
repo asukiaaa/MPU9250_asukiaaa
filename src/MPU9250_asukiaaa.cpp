@@ -1,25 +1,27 @@
 #include "MPU9250_asukiaaa.h"
 
-void I2Cread(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
-  Wire.beginTransmission(Address);
-  Wire.write(Register);
-  Wire.endTransmission();
+void MPU9250::I2Cread(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
+  myWire->beginTransmission(Address);
+  myWire->write(Register);
+  myWire->endTransmission();
 
-  Wire.requestFrom(Address, Nbytes);
+  myWire->requestFrom(Address, Nbytes);
   uint8_t index=0;
-  while (Wire.available())
-    Data[index++]=Wire.read();
+  while (myWire->available())
+    Data[index++]=myWire->read();
 }
 
-void I2CwriteByte(uint8_t Address, uint8_t Register, uint8_t Data) {
-  Wire.beginTransmission(Address);
-  Wire.write(Register);
-  Wire.write(Data);
-  Wire.endTransmission();
+void MPU9250::I2CwriteByte(uint8_t Address, uint8_t Register, uint8_t Data) {
+  myWire->write(Register);
+  myWire->write(Data);
+  myWire->endTransmission();
+}
+
+void MPU9250::setWire(TwoWire* wire) {
+  myWire = wire;
 }
 
 void MPU9250::begin() {
-  Wire.begin();
   delay(40);
 
   I2CwriteByte(address, 27, GYRO_FULL_SCALE_2000_DPS);
@@ -38,7 +40,6 @@ void MPU9250::magReadAdjustValues() {
 }
 
 void MPU9250::beginMagnetometer(uint8_t mode) {
-  Wire.begin();
   delay(10);
 
   // trun on magnetometor
