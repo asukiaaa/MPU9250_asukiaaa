@@ -13,7 +13,7 @@ For uno, nano or so on.
 For other boards, please check [i2c pin assign](https://www.arduino.cc/en/Reference/Wire).
 
 # Useage
-See (example)[examples/getData/getData.ino].
+See [example](examples/GetData/GetData.ino).
 
 # License
 MIT
