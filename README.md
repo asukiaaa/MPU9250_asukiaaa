@@ -4,11 +4,12 @@ A library to read value of MPU9250.
 # Connection
 For uno, nano or so on.
 
-- Arduino <-> MPU9250
-- 3.3 <-> VCC
-- A4 <-> SDA
-- A5 <-> SCL
-- GND <-> GND
+| Arduino | MPU9250 |
+|---------|---------|
+| 3.3     | VCC     |
+| A4(SDA) | SDA     |
+| A5(SCL) | SCL     |
+| GND     | GND     |
 
 For other boards, please check [i2c pin assign](https://www.arduino.cc/en/Reference/Wire).
 
