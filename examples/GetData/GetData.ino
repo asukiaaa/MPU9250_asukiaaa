@@ -44,6 +44,7 @@ void loop() {
   Serial.println("magX: " + String(mySensor.magX()));
   Serial.println("maxY: " + String(mySensor.magY()));
   Serial.println("magZ: " + String(mySensor.magZ()));
+  Serial.println("horizontal direction: " + String(mySensor.magHorizDirection()));
 
   Serial.println("at " + String(millis()) + "ms");
   delay(500);

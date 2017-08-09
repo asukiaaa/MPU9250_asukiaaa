@@ -2,6 +2,7 @@
 #define MPU9250_ASUKIAAA
 #include <Arduino.h>
 #include <Wire.h>
+#include <math.h>
 
 #define MPU9250_ADDRESS_AD0_LOW  0x68
 #define MPU9250_ADDRESS_AD0_HIGH 0x69
@@ -53,6 +54,7 @@ class MPU9250 {
   int16_t magY();
   int16_t magZ();
   void magSetMode(uint8_t mode);
+  float magHorizDirection();
 
   private:
   TwoWire* myWire;

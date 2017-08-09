@@ -57,6 +57,12 @@ void MPU9250::magSetMode(uint8_t mode) {
   delay(10);
 }
 
+const float Pi = 3.14159;
+
+float MPU9250::magHorizDirection() {
+  return atan2((float) magX(), (float) magY()) * 180 / Pi;
+}
+
 void MPU9250::magUpdate() {
   I2Cread(MAG_ADDRESS, AK8963_RA_HXL, 7, magBuf);
 }
