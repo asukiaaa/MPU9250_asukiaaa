@@ -1,6 +1,6 @@
 #include "MPU9250_asukiaaa.h"
 
-void MPU9250::I2Cread(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
+void MPU9250::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
   myWire->beginTransmission(Address);
   myWire->write(Register);
   myWire->endTransmission();
@@ -11,7 +11,7 @@ void MPU9250::I2Cread(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t
     Data[index++]=myWire->read();
 }
 
-void MPU9250::I2CwriteByte(uint8_t Address, uint8_t Register, uint8_t Data) {
+void MPU9250::i2cWriteByte(uint8_t Address, uint8_t Register, uint8_t Data) {
   myWire->beginTransmission(Address);
   myWire->write(Register);
   myWire->write(Data);
@@ -25,8 +25,8 @@ void MPU9250::setWire(TwoWire* wire) {
 void MPU9250::beginAccel() {
   delay(40);
 
-  I2CwriteByte(address, 27, GYRO_FULL_SCALE_2000_DPS);
-  I2CwriteByte(address, 28, ACC_FULL_SCALE_16_G);
+  i2cWriteByte(address, 27, GYRO_FULL_SCALE_2000_DPS);
+  i2cWriteByte(address, 28, ACC_FULL_SCALE_16_G);
   delay(10);
 }
 
@@ -34,7 +34,7 @@ void MPU9250::magReadAdjustValues() {
   magSetMode(AK8963_MODE_POWERDOWN);
   magSetMode(AK8963_MODE_FUSEROM);
   uint8_t buff[3];
-  I2Cread(MAG_ADDRESS, AK8963_RA_ASAX, 3, buff);
+  i2cRead(MAG_ADDRESS, AK8963_RA_ASAX, 3, buff);
   magXAdjust = buff[0];
   magYAdjust = buff[1];
   magZAdjust = buff[2];
@@ -44,7 +44,7 @@ void MPU9250::beginMag(uint8_t mode) {
   delay(10);
 
   // trun on magnetometor
-  I2CwriteByte(address, 0x37, 0x02);
+  i2cWriteByte(address, 0x37, 0x02);
   delay(10);
 
   magReadAdjustValues();
@@ -53,7 +53,7 @@ void MPU9250::beginMag(uint8_t mode) {
 }
 
 void MPU9250::magSetMode(uint8_t mode) {
-  I2CwriteByte(MAG_ADDRESS, AK8963_RA_CNTL1, mode);
+  i2cWriteByte(MAG_ADDRESS, AK8963_RA_CNTL1, mode);
   delay(10);
 }
 
@@ -64,7 +64,7 @@ float MPU9250::magHorizDirection() {
 }
 
 void MPU9250::magUpdate() {
-  I2Cread(MAG_ADDRESS, AK8963_RA_HXL, 7, magBuf);
+  i2cRead(MAG_ADDRESS, AK8963_RA_HXL, 7, magBuf);
 }
 
 int16_t MPU9250::magGet(uint8_t highIndex, uint8_t lowIndex) {
@@ -88,7 +88,7 @@ int16_t MPU9250::magZ() {
 }
 
 void MPU9250::accelUpdate() {
-  I2Cread(address, 0x3B, 14, accelBuf);
+  i2cRead(address, 0x3B, 14, accelBuf);
 }
 
 float MPU9250::accelGet(uint8_t highIndex, uint8_t lowIndex) {
