@@ -7,6 +7,9 @@
 
 MPU9250 mySensor;
 
+float aX, aY, aZ;
+uint16_t mX, mY, mZ;
+
 void setup() {
   while(!Serial);
 
@@ -33,17 +36,23 @@ void setup() {
 
 void loop() {
   mySensor.accelUpdate();
+  aX = mySensor.accelX();
+  aY = mySensor.accelY();
+  aZ = mySensor.accelZ();
   Serial.println("print accel values");
-  Serial.println("accelX: " + String(mySensor.accelX()));
-  Serial.println("accelY: " + String(mySensor.accelY()));
-  Serial.println("accelZ: " + String(mySensor.accelZ()));
+  Serial.println("accelX: " + String(aX));
+  Serial.println("accelY: " + String(aY));
+  Serial.println("accelZ: " + String(aZ));
   Serial.println("accelSqrt: " + String(mySensor.accelSqrt()));
 
   mySensor.magUpdate();
+  mX = mySensor.magX();
+  mY = mySensor.magY();
+  mZ = mySensor.magZ();
   Serial.println("print mag values");
-  Serial.println("magX: " + String(mySensor.magX()));
-  Serial.println("maxY: " + String(mySensor.magY()));
-  Serial.println("magZ: " + String(mySensor.magZ()));
+  Serial.println("magX: " + String(mX));
+  Serial.println("maxY: " + String(mY));
+  Serial.println("magZ: " + String(mZ));
   Serial.println("horizontal direction: " + String(mySensor.magHorizDirection()));
 
   Serial.println("at " + String(millis()) + "ms");
