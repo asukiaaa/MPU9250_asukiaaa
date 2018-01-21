@@ -1,6 +1,13 @@
 # MPU9250_asukiaaa
 A library to read value of MPU9250.
 
+# Install
+You can install to Arduino IDE with using library manager.
+
+1. Select [Sketch -> Include Library -> Manage Libraries] to open library manager.
+2. Search MPU9250 in library manager.
+3. Select and install this project.
+
 # Connection
 For uno, nano or so on.
 
