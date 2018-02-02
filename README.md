@@ -21,7 +21,92 @@ For uno, nano or so on.
 For other boards, please check [i2c pin assign](https://www.arduino.cc/en/Reference/Wire).
 
 # Useage
-See [example](examples/GetData/GetData.ino).
+
+## Accel
+```c
+#include <MPU9250_asukiaaa.h>
+MPU9250 mySensor;
+float aX, aY, aZ, aSqrt;
+
+void setup() {
+  Wire.begin();
+  mySensor.setWire(&Wire);
+  mySensor.beginAccel();
+}
+
+void loop() {
+  mySensor.accelUpdate();
+  aX = mySensor.accelX();
+  aY = mySensor.accelY();
+  aZ = mySensor.accelZ();
+  aSqrt = mySensor.accelSqrt();
+  // Do what you want
+}
+```
+
+## Magnetometer
+```c
+#include <MPU9250_asukiaaa.h>
+MPU9250 mySensor;
+float mDirection;
+uint16_t mX, mY, mZ;
+
+void setup() {
+  Wire.begin();
+  mySensor.setWire(&Wire);
+  mySensor.beginMag();
+}
+
+void loop() {
+  Serial.begin(115200);
+  mySensor.magUpdate();
+  mX = mySensor.magX();
+  mY = mySensor.magY();
+  mZ = mySensor.magZ();
+  mDirection = mySensor.magHorizDirection();
+  // Do what you want
+}
+```
+
+If you get values of sensor like this..
+
+Name | Max | Min
+-----|----:|----:
+magX |  70 | -20
+maxY | 110 |  10
+
+I suggest to set offset like this.
+
+```c
+void setup() {
+  mySensor.magXOffset = -30;
+  mySensor.magYOffset = -60;
+}
+```
+
+Then you can get like this.
+
+Name | Max | Min
+-----|----:|----:
+magX |  50 | -50
+maxY |  50 | -50
+
+After setting offset value, you can get `magHorizDirection` as you expected.
+
+Warning: Offset value changes by temperature or some reason. If you want to get high accuracy value, you should recheck the offset value.
+
+## With customizable Wire
+For ESP8266, ESP32 or so on.
+
+```c
+void setup() {
+  Wire.begin(26, 25); //sda, scl
+  mySensor.setWire(&Wire);
+}
+```
+
+## Example
+See [example project](https://github.com/asukiaaa/MPU9250_asukiaaa/blob/master/examples/GetData/GetData.ino).
 
 # License
 MIT
