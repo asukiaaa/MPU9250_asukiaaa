@@ -7,7 +7,7 @@
 
 MPU9250 mySensor;
 
-float aX, aY, aZ, aSqrt, mDirection;
+float aX, aY, aZ, aSqrt, gX, gY, gZ, mDirection;
 int16_t mX, mY, mZ;
 
 void setup() {
@@ -26,6 +26,7 @@ void setup() {
   mySensor.setWire(&Wire);
 
   mySensor.beginAccel();
+  mySensor.beginGyro();
   mySensor.beginMag();
 
   // you can set your own offset for mag values
@@ -40,23 +41,30 @@ void loop() {
   aY = mySensor.accelY();
   aZ = mySensor.accelZ();
   aSqrt = mySensor.accelSqrt();
-  Serial.println("print accel values");
   Serial.println("accelX: " + String(aX));
   Serial.println("accelY: " + String(aY));
   Serial.println("accelZ: " + String(aZ));
   Serial.println("accelSqrt: " + String(aSqrt));
+
+  mySensor.gyroUpdate();
+  gX = mySensor.gyroX();
+  gY = mySensor.gyroY();
+  gZ = mySensor.gyroZ();
+  Serial.println("gyroX: " + String(gX));
+  Serial.println("gyroY: " + String(gY));
+  Serial.println("gyroZ: " + String(gZ));
 
   mySensor.magUpdate();
   mX = mySensor.magX();
   mY = mySensor.magY();
   mZ = mySensor.magZ();
   mDirection = mySensor.magHorizDirection();
-  Serial.println("print mag values");
   Serial.println("magX: " + String(mX));
   Serial.println("maxY: " + String(mY));
   Serial.println("magZ: " + String(mZ));
   Serial.println("horizontal direction: " + String(mDirection));
 
   Serial.println("at " + String(millis()) + "ms");
+  Serial.println(""); // Add an empty line
   delay(500);
 }

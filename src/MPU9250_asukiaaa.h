@@ -48,6 +48,12 @@ class MPU9250 {
   float accelZ();
   float accelSqrt();
 
+  void beginGyro(uint8_t mode = GYRO_FULL_SCALE_2000_DPS);
+  void gyroUpdate();
+  float gyroX();
+  float gyroY();
+  float gyroZ();
+
   void beginMag(uint8_t mode = AK8963_MODE_CONTINUOUS_8HZ);
   void magUpdate();
   int16_t magX();
@@ -60,9 +66,12 @@ class MPU9250 {
   TwoWire* myWire;
   uint8_t address;
   uint8_t accelBuf[14];
+  uint8_t gyroBuf[6];
+  float gyroRange;
   uint8_t magBuf[7];
   uint8_t magXAdjust, magYAdjust, magZAdjust;
   float accelGet(uint8_t highIndex, uint8_t lowIndex);
+  float gyroGet(uint8_t highIndex, uint8_t lowIndex);
   int16_t magGet(uint8_t highIndex, uint8_t lowIndex);
   void magReadAdjustValues();
   void i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data);

@@ -23,9 +23,6 @@ void MPU9250::setWire(TwoWire* wire) {
 }
 
 void MPU9250::beginAccel() {
-  delay(40);
-
-  i2cWriteByte(address, 27, GYRO_FULL_SCALE_2000_DPS);
   i2cWriteByte(address, 28, ACC_FULL_SCALE_16_G);
   delay(10);
 }
@@ -41,8 +38,6 @@ void MPU9250::magReadAdjustValues() {
 }
 
 void MPU9250::beginMag(uint8_t mode) {
-  delay(10);
-
   // trun on magnetometor
   i2cWriteByte(address, 0x37, 0x02);
   delay(10);
@@ -50,6 +45,7 @@ void MPU9250::beginMag(uint8_t mode) {
   magReadAdjustValues();
   magSetMode(AK8963_MODE_POWERDOWN);
   magSetMode(mode);
+  delay(10);
 }
 
 void MPU9250::magSetMode(uint8_t mode) {
@@ -93,7 +89,7 @@ void MPU9250::accelUpdate() {
 
 float MPU9250::accelGet(uint8_t highIndex, uint8_t lowIndex) {
   int16_t v = -(accelBuf[highIndex]<<8 | accelBuf[lowIndex]);
-  return ((float)v) * 16.0/32768.0;
+  return ((float)v) * 16.0 / (float) 0x8000; // (float)0x8000 == 32768.0
 }
 
 float MPU9250::accelX() {
@@ -112,4 +108,48 @@ float MPU9250::accelSqrt() {
   return sqrt(pow(accelGet(0, 1), 2) +
               pow(accelGet(2, 3), 2) +
               pow(accelGet(4, 5), 2));
+}
+
+
+void MPU9250::beginGyro(uint8_t mode) {
+  i2cWriteByte(address, 27, mode);
+  switch (mode) {
+  case GYRO_FULL_SCALE_250_DPS:
+    gyroRange = 250.0;
+    break;
+  case GYRO_FULL_SCALE_500_DPS:
+    gyroRange = 500.0;
+    break;
+  case GYRO_FULL_SCALE_1000_DPS:
+    gyroRange = 1000.0;
+    break;
+  case GYRO_FULL_SCALE_2000_DPS:
+    gyroRange = 2000.0;
+  default:
+    gyroRange = 0;
+  }
+  delay(10);
+}
+
+void MPU9250::gyroUpdate() {
+  Serial.print("gyroRange");
+  Serial.println(gyroRange);
+  i2cRead(address, 0x43, 6, gyroBuf);
+}
+
+float MPU9250::gyroGet(uint8_t highIndex, uint8_t lowIndex) {
+  int16_t v = -(gyroBuf[highIndex]<<8 | gyroBuf[lowIndex]);
+  return ((float)v) * gyroRange / (float)0x8000;
+}
+
+float MPU9250::gyroX() {
+  return gyroGet(0, 1);
+}
+
+float MPU9250::gyroY() {
+  return gyroGet(2, 3);
+}
+
+float MPU9250::gyroZ() {
+  return gyroGet(4, 5);
 }

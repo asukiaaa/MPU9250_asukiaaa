@@ -44,6 +44,28 @@ void loop() {
 }
 ```
 
+## Gyrometer
+```c
+```c
+#include <MPU9250_asukiaaa.h>
+MPU9250 mySensor;
+float gX, gY, gZ;
+
+void setup() {
+  Wire.begin();
+  mySensor.setWire(&Wire);
+  mySensor.beginGyro();
+}
+
+void loop() {
+  mySensor.gyroUpdate();
+  gX = mySensor.gyroX();
+  gY = mySensor.gyroY();
+  gZ = mySensor.gyroZ();
+  // Do what you want
+}
+```
+
 ## Magnetometer
 ```c
 #include <MPU9250_asukiaaa.h>
@@ -118,3 +140,5 @@ MIT
 - [jrowberg/i2cdevlib/Arduino/AK8963](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/AK8963)
 - [SparkFun_MPU-9250](https://github.com/sparkfun/SparkFun_MPU-9250_Breakout_Arduino_Library/blob/master/src/MPU9250.cpp)
 - [ArduinoでMPU9250（加速度センサ、磁気センサ）を使う方法](http://asukiaaa.blogspot.jp/2017/07/arduinompu9250.html)
+- [「MPU-9250 ９軸センサモジュール (メーカー品番：MPU-9250)」を使う](https://qiita.com/boyaki_machine/items/915f7730c737f2a5cc79)
+- [【PSoC】MPU-9250のデータを取得（加速度、ジャイロ編）](http://amamitokachi.com/2017/04/12/post-71/)
