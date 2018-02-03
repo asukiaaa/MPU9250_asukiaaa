@@ -71,8 +71,8 @@ int16_t MPU9250::magGet(uint8_t highIndex, uint8_t lowIndex) {
   return (((int16_t)magBuf[highIndex]) << 8) | magBuf[lowIndex];
 }
 
-uint16_t adjustMagValue(int16_t value, uint8_t adjust) {
-  return (value * ((((adjust - 128) * 0.5) / 128) + 1));
+int16_t adjustMagValue(int16_t value, uint8_t adjust) {
+  return (value * (((((int16_t)adjust - 128) * 0.5) / 128) + 1));
 }
 
 int16_t MPU9250::magX() {
