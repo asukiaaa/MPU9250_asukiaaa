@@ -94,14 +94,14 @@ If you get values of sensor like this..
 
 Name | Max | Min
 -----|----:|----:
-magX |  70 | -20
+magX |  70 | -30
 maxY | 110 |  10
 
 I suggest to set offset like this.
 
 ```c
 void setup() {
-  mySensor.magXOffset = -30;
+  mySensor.magXOffset = -20;
   mySensor.magYOffset = -60;
 }
 ```
