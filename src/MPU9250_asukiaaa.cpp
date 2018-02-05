@@ -125,6 +125,7 @@ void MPU9250::beginGyro(uint8_t mode) {
     break;
   case GYRO_FULL_SCALE_2000_DPS:
     gyroRange = 2000.0;
+    break;
   default:
     gyroRange = 0;
   }
@@ -132,8 +133,6 @@ void MPU9250::beginGyro(uint8_t mode) {
 }
 
 void MPU9250::gyroUpdate() {
-  Serial.print("gyroRange");
-  Serial.println(gyroRange);
   i2cRead(address, 0x43, 6, gyroBuf);
 }
 
