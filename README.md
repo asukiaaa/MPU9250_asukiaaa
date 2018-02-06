@@ -1,7 +1,7 @@
 # MPU9250_asukiaaa
 A library to read value of MPU9250.
 
-# Install
+# Installation
 You can install to Arduino IDE with using library manager.
 
 1. Select [Sketch -> Include Library -> Manage Libraries] to open library manager.
@@ -9,7 +9,7 @@ You can install to Arduino IDE with using library manager.
 3. Select and install this project.
 
 # Connection
-For uno, nano or so on.
+For uno, nano and so on.
 
 | Arduino | MPU9250 |
 |---------|---------|
@@ -20,9 +20,9 @@ For uno, nano or so on.
 
 For other boards, please check [i2c pin assign](https://www.arduino.cc/en/Reference/Wire).
 
-# Useage
+# Usage
 
-## Accel
+## Accelerometer
 ```c
 #include <MPU9250_asukiaaa.h>
 MPU9250 mySensor;
@@ -118,7 +118,7 @@ After setting offset value, you can get `magHorizDirection` as you expected.
 Warning: Offset value changes by temperature or some reason. If you want to get high accuracy value, you should recheck the offset value.
 
 ## With customizable Wire
-For ESP8266, ESP32 or so on.
+For ESP8266, ESP32 and so on.
 
 ```c
 void setup() {
