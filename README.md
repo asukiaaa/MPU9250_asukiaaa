@@ -134,11 +134,11 @@ See [example project](https://github.com/asukiaaa/MPU9250_asukiaaa/blob/master/e
 MIT
 
 # References
+- [ArduinoでMPU9250（加速度センサ、磁気センサ）を使う方法](http://asukiaaa.blogspot.jp/2017/07/arduinompu9250.html)
 - [HaLakeKit-Library](https://github.com/nyampass/HaLakeKit-Library)
 - [Aliexpress MPU9250](https://www.aliexpress.com/wholesale?catId=0&initiative_id=AS_20170706234529&SearchText=MPU9250)
 - [AK8963 datasheet](https://strawberry-linux.com/pub/AK8963.pdf)
 - [jrowberg/i2cdevlib/Arduino/AK8963](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/AK8963)
 - [SparkFun_MPU-9250](https://github.com/sparkfun/SparkFun_MPU-9250_Breakout_Arduino_Library/blob/master/src/MPU9250.cpp)
-- [ArduinoでMPU9250（加速度センサ、磁気センサ）を使う方法](http://asukiaaa.blogspot.jp/2017/07/arduinompu9250.html)
 - [「MPU-9250 ９軸センサモジュール (メーカー品番：MPU-9250)」を使う](https://qiita.com/boyaki_machine/items/915f7730c737f2a5cc79)
 - [【PSoC】MPU-9250のデータを取得（加速度、ジャイロ編）](http://amamitokachi.com/2017/04/12/post-71/)
