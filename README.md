@@ -46,7 +46,6 @@ void loop() {
 
 ## Gyrometer
 ```c
-```c
 #include <MPU9250_asukiaaa.h>
 MPU9250 mySensor;
 float gX, gY, gZ;
