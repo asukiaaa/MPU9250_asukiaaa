@@ -1,5 +1,10 @@
 #include "MPU9250_asukiaaa.h"
 
+#define AK8963_ADDRESS  0x0C
+#define AK8963_RA_HXL   0x03
+#define AK8963_RA_CNTL1 0x0A
+#define AK8963_RA_ASAX  0x10
+
 void MPU9250::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
   myWire->beginTransmission(Address);
   myWire->write(Register);
@@ -37,35 +42,35 @@ void MPU9250::beginAccel(uint8_t mode) {
     accelRange = 16.0;
     break;
   default:
-    return; // return without writing invalid mode
+    return; // Return without writing invalid mode
   }
   i2cWriteByte(address, 28, mode);
   delay(10);
 }
 
 void MPU9250::magReadAdjustValues() {
-  magSetMode(AK8963_MODE_POWERDOWN);
-  magSetMode(AK8963_MODE_FUSEROM);
+  magSetMode(MAG_MODE_POWERDOWN);
+  magSetMode(MAG_MODE_FUSEROM);
   uint8_t buff[3];
-  i2cRead(MAG_ADDRESS, AK8963_RA_ASAX, 3, buff);
+  i2cRead(AK8963_ADDRESS, AK8963_RA_ASAX, 3, buff);
   magXAdjust = buff[0];
   magYAdjust = buff[1];
   magZAdjust = buff[2];
 }
 
 void MPU9250::beginMag(uint8_t mode) {
-  // trun on magnetometor
+  // Trun on AK8963 magnetometer
   i2cWriteByte(address, 0x37, 0x02);
   delay(10);
 
   magReadAdjustValues();
-  magSetMode(AK8963_MODE_POWERDOWN);
+  magSetMode(MAG_MODE_POWERDOWN);
   magSetMode(mode);
   delay(10);
 }
 
 void MPU9250::magSetMode(uint8_t mode) {
-  i2cWriteByte(MAG_ADDRESS, AK8963_RA_CNTL1, mode);
+  i2cWriteByte(AK8963_ADDRESS, AK8963_RA_CNTL1, mode);
   delay(10);
 }
 
@@ -76,15 +81,15 @@ float MPU9250::magHorizDirection() {
 }
 
 void MPU9250::magUpdate() {
-  i2cRead(MAG_ADDRESS, AK8963_RA_HXL, 7, magBuf);
+  i2cRead(AK8963_ADDRESS, AK8963_RA_HXL, 7, magBuf);
 }
 
 int16_t MPU9250::magGet(uint8_t highIndex, uint8_t lowIndex) {
-  return (((int16_t)magBuf[highIndex]) << 8) | magBuf[lowIndex];
+  return (((int16_t) magBuf[highIndex]) << 8) | magBuf[lowIndex];
 }
 
 int16_t adjustMagValue(int16_t value, uint8_t adjust) {
-  return (value * (((((int16_t)adjust - 128) * 0.5) / 128) + 1));
+  return (value * (((((int16_t) adjust - 128) * 0.5) / 128) + 1));
 }
 
 int16_t MPU9250::magX() {
@@ -100,12 +105,12 @@ int16_t MPU9250::magZ() {
 }
 
 void MPU9250::accelUpdate() {
-  i2cRead(address, 0x3B, 14, accelBuf);
+  i2cRead(address, 0x3B, 6, accelBuf);
 }
 
 float MPU9250::accelGet(uint8_t highIndex, uint8_t lowIndex) {
-  int16_t v = -(accelBuf[highIndex]<<8 | accelBuf[lowIndex]);
-  return ((float)v) * accelRange / (float) 0x8000; // (float)0x8000 == 32768.0
+  int16_t v = - (accelBuf[highIndex] << 8 | accelBuf[lowIndex]);
+  return ((float) v) * accelRange / (float) 0x8000; // (float) 0x8000 == 32768.0
 }
 
 float MPU9250::accelX() {
@@ -126,9 +131,7 @@ float MPU9250::accelSqrt() {
               pow(accelGet(4, 5), 2));
 }
 
-
 void MPU9250::beginGyro(uint8_t mode) {
-  i2cWriteByte(address, 27, mode);
   switch (mode) {
   case GYRO_FULL_SCALE_250_DPS:
     gyroRange = 250.0;
@@ -143,8 +146,9 @@ void MPU9250::beginGyro(uint8_t mode) {
     gyroRange = 2000.0;
     break;
   default:
-    gyroRange = 0;
+    return; // Return without writing invalid mode
   }
+  i2cWriteByte(address, 27, mode);
   delay(10);
 }
 
@@ -153,8 +157,8 @@ void MPU9250::gyroUpdate() {
 }
 
 float MPU9250::gyroGet(uint8_t highIndex, uint8_t lowIndex) {
-  int16_t v = -(gyroBuf[highIndex]<<8 | gyroBuf[lowIndex]);
-  return ((float)v) * gyroRange / (float)0x8000;
+  int16_t v = - (gyroBuf[highIndex] << 8 | gyroBuf[lowIndex]);
+  return ((float) v) * gyroRange / (float) 0x8000;
 }
 
 float MPU9250::gyroX() {

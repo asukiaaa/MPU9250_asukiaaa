@@ -12,24 +12,21 @@ int16_t mX, mY, mZ;
 
 void setup() {
   while(!Serial);
-
   Serial.begin(115200);
   Serial.println("started");
 
-#ifdef _ESP32_HAL_I2C_H_
-  // for esp32
-  Wire.begin(SDA_PIN, SCL_PIN); //sda, scl
+#ifdef _ESP32_HAL_I2C_H_ // For ESP32
+  Wire.begin(SDA_PIN, SCL_PIN); // SDA, SCL
 #else
   Wire.begin();
 #endif
 
   mySensor.setWire(&Wire);
-
   mySensor.beginAccel();
   mySensor.beginGyro();
   mySensor.beginMag();
 
-  // you can set your own offset for mag values
+  // You can set your own offset for mag values
   // mySensor.magXOffset = -50;
   // mySensor.magYOffset = -55;
   // mySensor.magZOffset = -10;
