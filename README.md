@@ -135,6 +135,7 @@ MIT
 
 # References
 - [ArduinoでMPU9250（加速度センサ、磁気センサ）を使う方法](http://asukiaaa.blogspot.jp/2017/07/arduinompu9250.html)
+- [MPU-9250 Register Map and Descriptions](https://cdn.sparkfun.com/assets/learn_tutorials/5/5/0/MPU-9250-Register-Map.pdf)
 - [HaLakeKit-Library](https://github.com/nyampass/HaLakeKit-Library)
 - [Aliexpress MPU9250](https://www.aliexpress.com/wholesale?catId=0&initiative_id=AS_20170706234529&SearchText=MPU9250)
 - [AK8963 datasheet](https://strawberry-linux.com/pub/AK8963.pdf)
