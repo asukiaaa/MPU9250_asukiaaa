@@ -5,6 +5,8 @@
 #define AK8963_RA_CNTL1 0x0A
 #define AK8963_RA_ASAX  0x10
 
+#define MPU9250_RA_WHOAMI 0x75
+
 void MPU9250::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
   myWire->beginTransmission(Address);
   myWire->write(Register);
@@ -25,6 +27,12 @@ void MPU9250::i2cWriteByte(uint8_t Address, uint8_t Register, uint8_t Data) {
 
 void MPU9250::setWire(TwoWire* wire) {
   myWire = wire;
+}
+
+uint8_t MPU9250::readId() {
+  uint8_t id;
+  i2cRead(address, MPU9250_RA_WHOAMI, 1, &id);
+  return id;
 }
 
 void MPU9250::beginAccel(uint8_t mode) {

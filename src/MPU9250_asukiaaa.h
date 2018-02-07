@@ -37,6 +37,7 @@ class MPU9250 {
     magYOffset(0),
     magZOffset(0) {};
   void setWire(TwoWire *wire);
+  uint8_t readId();
 
   void beginAccel(uint8_t mode = ACC_FULL_SCALE_16_G);
   void accelUpdate();

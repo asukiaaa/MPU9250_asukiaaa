@@ -7,6 +7,7 @@
 
 MPU9250 mySensor;
 
+uint8_t sensorId;
 float aX, aY, aZ, aSqrt, gX, gY, gZ, mDirection;
 int16_t mX, mY, mZ;
 
@@ -30,9 +31,13 @@ void setup() {
   // mySensor.magXOffset = -50;
   // mySensor.magYOffset = -55;
   // mySensor.magZOffset = -10;
+
+  sensorId = mySensor.readId();
 }
 
 void loop() {
+  Serial.println("sensorId: " + String(sensorId));
+
   mySensor.accelUpdate();
   aX = mySensor.accelX();
   aY = mySensor.accelY();
