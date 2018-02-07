@@ -22,8 +22,24 @@ void MPU9250::setWire(TwoWire* wire) {
   myWire = wire;
 }
 
-void MPU9250::beginAccel() {
-  i2cWriteByte(address, 28, ACC_FULL_SCALE_16_G);
+void MPU9250::beginAccel(uint8_t mode) {
+  switch(mode) {
+  case ACC_FULL_SCALE_2_G:
+    accelRange = 2.0;
+    break;
+  case ACC_FULL_SCALE_4_G:
+    accelRange = 4.0;
+    break;
+  case ACC_FULL_SCALE_8_G:
+    accelRange = 8.0;
+    break;
+  case ACC_FULL_SCALE_16_G:
+    accelRange = 16.0;
+    break;
+  default:
+    return; // return without writing invalid mode
+  }
+  i2cWriteByte(address, 28, mode);
   delay(10);
 }
 
@@ -89,7 +105,7 @@ void MPU9250::accelUpdate() {
 
 float MPU9250::accelGet(uint8_t highIndex, uint8_t lowIndex) {
   int16_t v = -(accelBuf[highIndex]<<8 | accelBuf[lowIndex]);
-  return ((float)v) * 16.0 / (float) 0x8000; // (float)0x8000 == 32768.0
+  return ((float)v) * accelRange / (float) 0x8000; // (float)0x8000 == 32768.0
 }
 
 float MPU9250::accelX() {

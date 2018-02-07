@@ -41,7 +41,7 @@ class MPU9250 {
     magZOffset(0) {};
   void setWire(TwoWire *wire);
 
-  void beginAccel();
+  void beginAccel(uint8_t mode = ACC_FULL_SCALE_16_G);
   void accelUpdate();
   float accelX();
   float accelY();
@@ -66,6 +66,7 @@ class MPU9250 {
   TwoWire* myWire;
   uint8_t address;
   uint8_t accelBuf[14];
+  float accelRange;
   uint8_t gyroBuf[6];
   float gyroRange;
   uint8_t magBuf[7];
