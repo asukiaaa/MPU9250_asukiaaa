@@ -55,9 +55,9 @@ class MPU9250 {
   void beginMag(uint8_t mode = MAG_MODE_CONTINUOUS_8HZ);
   void magSetMode(uint8_t mode);
   void magUpdate();
-  int16_t magX();
-  int16_t magY();
-  int16_t magZ();
+  float magX();
+  float magY();
+  float magZ();
   float magHorizDirection();
 
   private:

@@ -85,7 +85,7 @@ void MPU9250::magSetMode(uint8_t mode) {
 const float Pi = 3.14159;
 
 float MPU9250::magHorizDirection() {
-  return atan2((float) magX(), (float) magY()) * 180 / Pi;
+  return atan2(magX(), magY()) * 180 / Pi;
 }
 
 void MPU9250::magUpdate() {
@@ -96,19 +96,19 @@ int16_t MPU9250::magGet(uint8_t highIndex, uint8_t lowIndex) {
   return (((int16_t) magBuf[highIndex]) << 8) | magBuf[lowIndex];
 }
 
-int16_t adjustMagValue(int16_t value, uint8_t adjust) {
-  return (value * (((((int16_t) adjust - 128) * 0.5) / 128) + 1));
+float adjustMagValue(int16_t value, uint8_t adjust) {
+  return ((float) value * (((((float) adjust - 128) * 0.5) / 128) + 1));
 }
 
-int16_t MPU9250::magX() {
+float MPU9250::magX() {
   return adjustMagValue(magGet(1, 0), magXAdjust) + magXOffset;
 }
 
-int16_t MPU9250::magY() {
+float MPU9250::magY() {
   return adjustMagValue(magGet(3, 2), magYAdjust) + magYOffset;
 }
 
-int16_t MPU9250::magZ() {
+float MPU9250::magZ() {
   return adjustMagValue(magGet(5, 4), magZAdjust) + magZOffset;
 }
 

@@ -8,8 +8,7 @@
 MPU9250 mySensor;
 
 uint8_t sensorId;
-float aX, aY, aZ, aSqrt, gX, gY, gZ, mDirection;
-int16_t mX, mY, mZ;
+float aX, aY, aZ, aSqrt, gX, gY, gZ, mDirection, mX, mY, mZ;
 
 void setup() {
   while(!Serial);
