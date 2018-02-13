@@ -96,7 +96,23 @@ Name | Max | Min
 magX |  70 | -30
 maxY | 110 |  10
 
-I suggest to set offset like this.
+You can calcurate offset values like this.
+
+```
+maxXOffset = - (magXMax + magXMin) / 2
+           = - (70 - 30) / 2
+           = - 40 / 2
+           = -20
+```
+
+```
+magYOffset = - (magYMax + magYMin) / 2
+           = - (110 + 10) / 2
+           = - 120 / 2
+           = -60
+```
+
+Then set the offset values like this.
 
 ```c
 void setup() {
