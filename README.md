@@ -21,6 +21,7 @@ For uno, nano and so on.
 For other boards, please check [i2c pin assign](https://www.arduino.cc/en/Reference/Wire).
 
 # Usage
+You can see all function on [example project](https://github.com/asukiaaa/MPU9250_asukiaaa/blob/master/examples/GetData/GetData.ino).
 
 ## Accelerometer
 ```c
@@ -141,9 +142,6 @@ void setup() {
   mySensor.setWire(&Wire);
 }
 ```
-
-## Example
-See [example project](https://github.com/asukiaaa/MPU9250_asukiaaa/blob/master/examples/GetData/GetData.ino).
 
 # License
 MIT
