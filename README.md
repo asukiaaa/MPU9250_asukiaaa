@@ -133,6 +133,8 @@ After setting offset value, you can get `magHorizDirection` as you expected.
 
 Warning: Offset value changes by temperature or some reason. If you want to get high accuracy value, you should recheck the offset value.
 
+Example about auto calibration (calculating offset values) is [here](https://github.com/asukiaaa/MPU9250_asukiaaa/blob/master/examples/GetMagOffset/GetMagOffset.ino).
+
 ## With customizable Wire
 For ESP8266, ESP32 and so on.
 
