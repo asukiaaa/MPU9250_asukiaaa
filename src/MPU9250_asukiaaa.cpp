@@ -1,4 +1,5 @@
 #include "MPU9250_asukiaaa.h"
+#include <math.h>
 
 #define AK8963_ADDRESS  0x0C
 #define AK8963_RA_HXL   0x03

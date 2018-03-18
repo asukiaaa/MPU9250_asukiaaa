@@ -2,7 +2,6 @@
 #define MPU9250_ASUKIAAA_H
 #include <Arduino.h>
 #include <Wire.h>
-#include <math.h>
 
 #define MPU9250_ADDRESS_AD0_LOW  0x68
 #define MPU9250_ADDRESS_AD0_HIGH 0x69
