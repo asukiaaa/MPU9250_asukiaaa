@@ -19,8 +19,11 @@ void MPU9250::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t
 
   myWire->requestFrom(Address, Nbytes);
   uint8_t index=0;
-  while (myWire->available())
-    Data[index++]=myWire->read();
+  while (myWire->available()) {
+    if (index < Nbytes) {
+      Data[index++]=myWire->read();
+    }
+  }
 }
 
 void MPU9250::i2cWriteByte(uint8_t Address, uint8_t Register, uint8_t Data) {
