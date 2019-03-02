@@ -150,7 +150,9 @@ MIT
 
 # References
 - [ArduinoでMPU9250（加速度センサ、磁気センサ）を使う方法](http://asukiaaa.blogspot.jp/2017/07/arduinompu9250.html)
-- [MPU-9250 Register Map and Descriptions](https://cdn.sparkfun.com/assets/learn_tutorials/5/5/0/MPU-9250-Register-Map.pdf)
+- [MPU-9250 | TDK](https://www.invensense.com/products/motion-tracking/9-axis/mpu-9250/)
+- [MPU-9250Product SpecificationRevision 1.1](http://www.invensense.com/wp-content/uploads/2015/02/PS-MPU-9250A-01-v1.1.pdf)
+- [MPU-9250Register Map and DescriptionsRevision 1.6](http://www.invensense.com/wp-content/uploads/2017/11/RM-MPU-9250A-00-v1.6.pdf)
 - [HaLakeKit-Library](https://github.com/nyampass/HaLakeKit-Library)
 - [Aliexpress MPU9250](https://www.aliexpress.com/wholesale?catId=0&initiative_id=AS_20170706234529&SearchText=MPU9250)
 - [AK8963 datasheet](https://strawberry-linux.com/pub/AK8963.pdf)
