@@ -76,10 +76,8 @@ void MPU9250::magReadAdjustValues() {
 }
 
 void MPU9250::beginMag(uint8_t mode) {
-  // Trun on AK8963 magnetometer
   magWakeup();
-  i2cWriteByte(address, MPU9250_ADDR_INT_PIN_CFG, 0x02);
-  delay(10);
+  magEnableSlaveMode();
 
   magReadAdjustValues();
   magSetMode(MAG_MODE_POWERDOWN);
@@ -97,6 +95,14 @@ void MPU9250::magWakeup() {
   i2cRead(address, MPU9250_ADDR_PWR_MGMT_1, 1, &bits);
   bits &= ~B00111000; // Turn off SLEEP, STANDBY, CYCLE
   i2cWriteByte(address, MPU9250_ADDR_PWR_MGMT_1, bits);
+  delay(10);
+}
+
+void MPU9250::magEnableSlaveMode() {
+  unsigned char bits;
+  i2cRead(address, MPU9250_ADDR_INT_PIN_CFG, 1, &bits);
+  bits |= B00000010; // Activate BYPASS_EN
+  i2cWriteByte(address, MPU9250_ADDR_INT_PIN_CFG, bits);
   delay(10);
 }
 

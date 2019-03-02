@@ -71,6 +71,7 @@ class MPU9250 {
   float accelGet(uint8_t highIndex, uint8_t lowIndex);
   float gyroGet(uint8_t highIndex, uint8_t lowIndex);
   int16_t magGet(uint8_t highIndex, uint8_t lowIndex);
+  void magEnableSlaveMode();
   void magReadAdjustValues();
   void magWakeup();
   void i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data);
