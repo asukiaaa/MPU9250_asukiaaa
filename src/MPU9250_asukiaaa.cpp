@@ -6,7 +6,11 @@
 #define AK8963_RA_CNTL1 0x0A
 #define AK8963_RA_ASAX  0x10
 
-#define MPU9250_RA_WHOAMI 0x75
+#define MPU9250_ADDR_ACCELCONFIG  0x1C
+#define MPU9250_ADDR_INT_PIN_CFG  0x37
+#define MPU9250_ADDR_ACCEL_XOUT_H 0x3B
+#define MPU9250_ADDR_GYRO_XOUT_H  0x43
+#define MPU9250_ADDR_WHOAMI       0x75
 
 void MPU9250::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
   myWire->beginTransmission(Address);
@@ -32,7 +36,7 @@ void MPU9250::setWire(TwoWire* wire) {
 
 uint8_t MPU9250::readId() {
   uint8_t id;
-  i2cRead(address, MPU9250_RA_WHOAMI, 1, &id);
+  i2cRead(address, MPU9250_ADDR_WHOAMI, 1, &id);
   return id;
 }
 
@@ -53,7 +57,7 @@ void MPU9250::beginAccel(uint8_t mode) {
   default:
     return; // Return without writing invalid mode
   }
-  i2cWriteByte(address, 28, mode);
+  i2cWriteByte(address, MPU9250_ADDR_ACCELCONFIG, mode);
   delay(10);
 }
 
@@ -69,7 +73,7 @@ void MPU9250::magReadAdjustValues() {
 
 void MPU9250::beginMag(uint8_t mode) {
   // Trun on AK8963 magnetometer
-  i2cWriteByte(address, 0x37, 0x02);
+  i2cWriteByte(address, MPU9250_ADDR_INT_PIN_CFG, 0x02);
   delay(10);
 
   magReadAdjustValues();
@@ -114,7 +118,7 @@ float MPU9250::magZ() {
 }
 
 void MPU9250::accelUpdate() {
-  i2cRead(address, 0x3B, 6, accelBuf);
+  i2cRead(address, MPU9250_ADDR_ACCEL_XOUT_H, 6, accelBuf);
 }
 
 float MPU9250::accelGet(uint8_t highIndex, uint8_t lowIndex) {
@@ -162,7 +166,7 @@ void MPU9250::beginGyro(uint8_t mode) {
 }
 
 void MPU9250::gyroUpdate() {
-  i2cRead(address, 0x43, 6, gyroBuf);
+  i2cRead(address, MPU9250_ADDR_GYRO_XOUT_H, 6, gyroBuf);
 }
 
 float MPU9250::gyroGet(uint8_t highIndex, uint8_t lowIndex) {
