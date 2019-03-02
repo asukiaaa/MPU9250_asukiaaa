@@ -10,6 +10,7 @@
 #define MPU9250_ADDR_INT_PIN_CFG  0x37
 #define MPU9250_ADDR_ACCEL_XOUT_H 0x3B
 #define MPU9250_ADDR_GYRO_XOUT_H  0x43
+#define MPU9250_ADDR_PWR_MGMT_1   0x6B
 #define MPU9250_ADDR_WHOAMI       0x75
 
 void MPU9250::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
@@ -76,6 +77,7 @@ void MPU9250::magReadAdjustValues() {
 
 void MPU9250::beginMag(uint8_t mode) {
   // Trun on AK8963 magnetometer
+  magWakeup();
   i2cWriteByte(address, MPU9250_ADDR_INT_PIN_CFG, 0x02);
   delay(10);
 
@@ -87,6 +89,14 @@ void MPU9250::beginMag(uint8_t mode) {
 
 void MPU9250::magSetMode(uint8_t mode) {
   i2cWriteByte(AK8963_ADDRESS, AK8963_RA_CNTL1, mode);
+  delay(10);
+}
+
+void MPU9250::magWakeup() {
+  unsigned char bits;
+  i2cRead(address, MPU9250_ADDR_PWR_MGMT_1, 1, &bits);
+  bits &= ~B00111000; // Turn off SLEEP, STANDBY, CYCLE
+  i2cWriteByte(address, MPU9250_ADDR_PWR_MGMT_1, bits);
   delay(10);
 }
 
