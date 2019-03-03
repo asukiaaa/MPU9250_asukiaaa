@@ -93,7 +93,7 @@ void MPU9250::magSetMode(uint8_t mode) {
 void MPU9250::magWakeup() {
   unsigned char bits;
   i2cRead(address, MPU9250_ADDR_PWR_MGMT_1, 1, &bits);
-  bits &= ~B00111000; // Turn off SLEEP, STANDBY, CYCLE
+  bits &= ~B01110000; // Turn off SLEEP, STANDBY, CYCLE
   i2cWriteByte(address, MPU9250_ADDR_PWR_MGMT_1, bits);
   delay(10);
 }
