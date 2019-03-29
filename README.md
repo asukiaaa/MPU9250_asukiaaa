@@ -1,4 +1,4 @@
-# MPU9250_asukiaaa
+# MPU9250_asukiaaa [![Build Status](https://travis-ci.org/asukiaaa/MPU9250_asukiaaa.svg?branch=master)](https://travis-ci.org/asukiaaa/MPU9250_asukiaaa)
 A library to read value of MPU9250.
 
 # Installation
