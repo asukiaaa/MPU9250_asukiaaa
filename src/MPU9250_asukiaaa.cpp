@@ -141,7 +141,7 @@ void MPU9250::accelUpdate() {
 }
 
 float MPU9250::accelGet(uint8_t highIndex, uint8_t lowIndex) {
-  int16_t v = - (accelBuf[highIndex] << 8 | accelBuf[lowIndex]);
+  int16_t v = - (((int16_t) accelBuf[highIndex]) << 8 | accelBuf[lowIndex]);
   return ((float) v) * accelRange / (float) 0x8000; // (float) 0x8000 == 32768.0
 }
 
@@ -189,7 +189,7 @@ void MPU9250::gyroUpdate() {
 }
 
 float MPU9250::gyroGet(uint8_t highIndex, uint8_t lowIndex) {
-  int16_t v = - (gyroBuf[highIndex] << 8 | gyroBuf[lowIndex]);
+  int16_t v = - (((int16_t) gyroBuf[highIndex]) << 8 | gyroBuf[lowIndex]);
   return ((float) v) * gyroRange / (float) 0x8000;
 }
 
