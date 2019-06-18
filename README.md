@@ -26,7 +26,7 @@ You can see all function on [example project](https://github.com/asukiaaa/MPU925
 ## Accelerometer
 ```c
 #include <MPU9250_asukiaaa.h>
-MPU9250 mySensor;
+MPU9250_asukiaaa mySensor;
 float aX, aY, aZ, aSqrt;
 
 void setup() {
@@ -48,7 +48,7 @@ void loop() {
 ## Gyrometer
 ```c
 #include <MPU9250_asukiaaa.h>
-MPU9250 mySensor;
+MPU9250_asukiaaa mySensor;
 float gX, gY, gZ;
 
 void setup() {
@@ -69,7 +69,7 @@ void loop() {
 ## Magnetometer
 ```c
 #include <MPU9250_asukiaaa.h>
-MPU9250 mySensor;
+MPU9250_asukiaaa mySensor;
 float mDirection;
 uint16_t mX, mY, mZ;
 
