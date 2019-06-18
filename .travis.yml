@@ -9,7 +9,6 @@ before_install:
   - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
 install:
   - ln -s $PWD /usr/local/share/arduino/libraries/MPU9250_asukiaaa
-  - arduino --install-library "MPU9250_asukiaaa"
 script:
   - arduino --verify --board arduino:avr:uno $PWD/examples/GetData/GetData.ino
   - arduino --verify --board arduino:avr:uno $PWD/examples/GetMagOffset/GetMagOffset.ino
