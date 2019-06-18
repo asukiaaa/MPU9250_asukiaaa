@@ -24,11 +24,11 @@
 #define MAG_MODE_SELFTEST         0x8
 #define MAG_MODE_FUSEROM          0xF
 
-class MPU9250 {
+class MPU9250_asukiaaa {
   public:
   int16_t magXOffset, magYOffset, magZOffset;
 
-  MPU9250(uint8_t address = MPU9250_ADDRESS_AD0_LOW):
+  MPU9250_asukiaaa(uint8_t address = MPU9250_ADDRESS_AD0_LOW):
     address(address),
     accelRange(0),
     gyroRange(0),

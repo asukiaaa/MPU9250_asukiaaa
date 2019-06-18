@@ -5,7 +5,7 @@
 #define SCL_PIN 25
 #endif
 
-MPU9250 mySensor;
+MPU9250_asukiaaa mySensor;
 
 uint8_t sensorId;
 float aX, aY, aZ, aSqrt, gX, gY, gZ, mDirection, mX, mY, mZ;

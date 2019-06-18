@@ -7,7 +7,7 @@
 
 #define CALIB_SEC 20
 
-MPU9250 mySensor;
+MPU9250_asukiaaa mySensor;
 
 uint8_t sensorId;
 float mDirection, mX, mY, mZ;
@@ -35,7 +35,7 @@ void setup() {
   Serial.println("Finished setting offset values.");
 }
 
-void setMagMinMaxAndSetOffset(MPU9250* sensor, int seconds) {
+void setMagMinMaxAndSetOffset(MPU9250_asukiaaa* sensor, int seconds) {
   unsigned long calibStartAt = millis();
   float magX, magXMin, magXMax, magY, magYMin, magYMax, magZ, magZMin, magZMax;
 

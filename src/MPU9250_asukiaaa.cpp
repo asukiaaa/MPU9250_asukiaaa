@@ -13,7 +13,7 @@
 #define MPU9250_ADDR_PWR_MGMT_1   0x6B
 #define MPU9250_ADDR_WHOAMI       0x75
 
-void MPU9250::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
+void MPU9250_asukiaaa::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
   myWire->beginTransmission(Address);
   myWire->write(Register);
   myWire->endTransmission();
@@ -27,24 +27,24 @@ void MPU9250::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t
   }
 }
 
-void MPU9250::i2cWriteByte(uint8_t Address, uint8_t Register, uint8_t Data) {
+void MPU9250_asukiaaa::i2cWriteByte(uint8_t Address, uint8_t Register, uint8_t Data) {
   myWire->beginTransmission(Address);
   myWire->write(Register);
   myWire->write(Data);
   myWire->endTransmission();
 }
 
-void MPU9250::setWire(TwoWire* wire) {
+void MPU9250_asukiaaa::setWire(TwoWire* wire) {
   myWire = wire;
 }
 
-uint8_t MPU9250::readId() {
+uint8_t MPU9250_asukiaaa::readId() {
   uint8_t id;
   i2cRead(address, MPU9250_ADDR_WHOAMI, 1, &id);
   return id;
 }
 
-void MPU9250::beginAccel(uint8_t mode) {
+void MPU9250_asukiaaa::beginAccel(uint8_t mode) {
   switch(mode) {
   case ACC_FULL_SCALE_2_G:
     accelRange = 2.0;
@@ -65,7 +65,7 @@ void MPU9250::beginAccel(uint8_t mode) {
   delay(10);
 }
 
-void MPU9250::magReadAdjustValues() {
+void MPU9250_asukiaaa::magReadAdjustValues() {
   magSetMode(MAG_MODE_POWERDOWN);
   magSetMode(MAG_MODE_FUSEROM);
   uint8_t buff[3];
@@ -75,7 +75,7 @@ void MPU9250::magReadAdjustValues() {
   magZAdjust = buff[2];
 }
 
-void MPU9250::beginMag(uint8_t mode) {
+void MPU9250_asukiaaa::beginMag(uint8_t mode) {
   magWakeup();
   magEnableSlaveMode();
 
@@ -85,12 +85,12 @@ void MPU9250::beginMag(uint8_t mode) {
   delay(10);
 }
 
-void MPU9250::magSetMode(uint8_t mode) {
+void MPU9250_asukiaaa::magSetMode(uint8_t mode) {
   i2cWriteByte(AK8963_ADDRESS, AK8963_RA_CNTL1, mode);
   delay(10);
 }
 
-void MPU9250::magWakeup() {
+void MPU9250_asukiaaa::magWakeup() {
   unsigned char bits;
   i2cRead(address, MPU9250_ADDR_PWR_MGMT_1, 1, &bits);
   bits &= ~B01110000; // Turn off SLEEP, STANDBY, CYCLE
@@ -98,7 +98,7 @@ void MPU9250::magWakeup() {
   delay(10);
 }
 
-void MPU9250::magEnableSlaveMode() {
+void MPU9250_asukiaaa::magEnableSlaveMode() {
   unsigned char bits;
   i2cRead(address, MPU9250_ADDR_INT_PIN_CFG, 1, &bits);
   bits |= B00000010; // Activate BYPASS_EN
@@ -108,15 +108,15 @@ void MPU9250::magEnableSlaveMode() {
 
 const float Pi = 3.14159;
 
-float MPU9250::magHorizDirection() {
+float MPU9250_asukiaaa::magHorizDirection() {
   return atan2(magX(), magY()) * 180 / Pi;
 }
 
-void MPU9250::magUpdate() {
+void MPU9250_asukiaaa::magUpdate() {
   i2cRead(AK8963_ADDRESS, AK8963_RA_HXL, 7, magBuf);
 }
 
-int16_t MPU9250::magGet(uint8_t highIndex, uint8_t lowIndex) {
+int16_t MPU9250_asukiaaa::magGet(uint8_t highIndex, uint8_t lowIndex) {
   return (((int16_t) magBuf[highIndex]) << 8) | magBuf[lowIndex];
 }
 
@@ -124,46 +124,46 @@ float adjustMagValue(int16_t value, uint8_t adjust) {
   return ((float) value * (((((float) adjust - 128) * 0.5) / 128) + 1));
 }
 
-float MPU9250::magX() {
+float MPU9250_asukiaaa::magX() {
   return adjustMagValue(magGet(1, 0), magXAdjust) + magXOffset;
 }
 
-float MPU9250::magY() {
+float MPU9250_asukiaaa::magY() {
   return adjustMagValue(magGet(3, 2), magYAdjust) + magYOffset;
 }
 
-float MPU9250::magZ() {
+float MPU9250_asukiaaa::magZ() {
   return adjustMagValue(magGet(5, 4), magZAdjust) + magZOffset;
 }
 
-void MPU9250::accelUpdate() {
+void MPU9250_asukiaaa::accelUpdate() {
   i2cRead(address, MPU9250_ADDR_ACCEL_XOUT_H, 6, accelBuf);
 }
 
-float MPU9250::accelGet(uint8_t highIndex, uint8_t lowIndex) {
+float MPU9250_asukiaaa::accelGet(uint8_t highIndex, uint8_t lowIndex) {
   int16_t v = - (((int16_t) accelBuf[highIndex]) << 8 | accelBuf[lowIndex]);
   return ((float) v) * accelRange / (float) 0x8000; // (float) 0x8000 == 32768.0
 }
 
-float MPU9250::accelX() {
+float MPU9250_asukiaaa::accelX() {
   return accelGet(0, 1);
 }
 
-float MPU9250::accelY() {
+float MPU9250_asukiaaa::accelY() {
   return accelGet(2, 3);
 }
 
-float MPU9250::accelZ() {
+float MPU9250_asukiaaa::accelZ() {
   return accelGet(4, 5);
 }
 
-float MPU9250::accelSqrt() {
+float MPU9250_asukiaaa::accelSqrt() {
   return sqrt(pow(accelGet(0, 1), 2) +
               pow(accelGet(2, 3), 2) +
               pow(accelGet(4, 5), 2));
 }
 
-void MPU9250::beginGyro(uint8_t mode) {
+void MPU9250_asukiaaa::beginGyro(uint8_t mode) {
   switch (mode) {
   case GYRO_FULL_SCALE_250_DPS:
     gyroRange = 250.0;
@@ -184,23 +184,23 @@ void MPU9250::beginGyro(uint8_t mode) {
   delay(10);
 }
 
-void MPU9250::gyroUpdate() {
+void MPU9250_asukiaaa::gyroUpdate() {
   i2cRead(address, MPU9250_ADDR_GYRO_XOUT_H, 6, gyroBuf);
 }
 
-float MPU9250::gyroGet(uint8_t highIndex, uint8_t lowIndex) {
+float MPU9250_asukiaaa::gyroGet(uint8_t highIndex, uint8_t lowIndex) {
   int16_t v = - (((int16_t) gyroBuf[highIndex]) << 8 | gyroBuf[lowIndex]);
   return ((float) v) * gyroRange / (float) 0x8000;
 }
 
-float MPU9250::gyroX() {
+float MPU9250_asukiaaa::gyroX() {
   return gyroGet(0, 1);
 }
 
-float MPU9250::gyroY() {
+float MPU9250_asukiaaa::gyroY() {
   return gyroGet(2, 3);
 }
 
-float MPU9250::gyroZ() {
+float MPU9250_asukiaaa::gyroZ() {
   return gyroGet(4, 5);
 }
