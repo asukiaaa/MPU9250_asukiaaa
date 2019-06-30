@@ -1,8 +1,8 @@
 #include <MPU9250_asukiaaa.h>
 
 #ifdef _ESP32_HAL_I2C_H_
-#define SDA_PIN 26
-#define SCL_PIN 25
+#define SDA_PIN 21
+#define SCL_PIN 22
 #endif
 
 MPU9250_asukiaaa mySensor;
