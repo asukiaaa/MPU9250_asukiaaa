@@ -24,8 +24,11 @@ void setup() {
 #endif
 
   mySensor.setWire(&Wire);
+  while (mySensor.readId(&sensorId) != 0) {
+    Serial.println("Cannot find device to read sensorId");
+    delay(2000);
+  }
   mySensor.beginMag();
-  sensorId = mySensor.readId();
 
   float magXMin, magXMax, magYMin, magYMax, magZ, magZMin, magZMax;
 
