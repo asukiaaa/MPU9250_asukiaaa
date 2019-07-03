@@ -6,8 +6,6 @@
 #endif
 
 MPU9250_asukiaaa mySensor;
-
-uint8_t sensorId;
 float aX, aY, aZ, aSqrt, gX, gY, gZ, mDirection, mX, mY, mZ;
 
 void setup() {
@@ -30,12 +28,15 @@ void setup() {
   // mySensor.magXOffset = -50;
   // mySensor.magYOffset = -55;
   // mySensor.magZOffset = -10;
-
-  sensorId = mySensor.readId();
 }
 
 void loop() {
-  Serial.println("sensorId: " + String(sensorId));
+  uint8_t sensorId;
+  if (mySensor.readId(&sensorId) == 0) {
+    Serial.println("sensorId: " + String(sensorId));
+  } else {
+    Serial.println("Cannot read sensorId");
+  }
 
   if (mySensor.accelUpdate() == 0) {
     aX = mySensor.accelX();

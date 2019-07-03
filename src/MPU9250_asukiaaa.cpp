@@ -42,10 +42,8 @@ void MPU9250_asukiaaa::setWire(TwoWire* wire) {
   myWire = wire;
 }
 
-uint8_t MPU9250_asukiaaa::readId() {
-  uint8_t id;
-  uint8_t result = i2cRead(address, MPU9250_ADDR_WHOAMI, 1, &id);
-  return (result == 0) ? id : 0;
+uint8_t MPU9250_asukiaaa::readId(uint8_t *id) {
+  return i2cRead(address, MPU9250_ADDR_WHOAMI, 1, id);
 }
 
 void MPU9250_asukiaaa::beginAccel(uint8_t mode) {
