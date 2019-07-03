@@ -13,10 +13,13 @@
 #define MPU9250_ADDR_PWR_MGMT_1   0x6B
 #define MPU9250_ADDR_WHOAMI       0x75
 
-void MPU9250_asukiaaa::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
+uint8_t MPU9250_asukiaaa::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data) {
   myWire->beginTransmission(Address);
   myWire->write(Register);
-  myWire->endTransmission();
+  uint8_t result = myWire->endTransmission();
+  if (result != 0) {
+    return result;
+  }
 
   myWire->requestFrom(Address, Nbytes);
   uint8_t index=0;
@@ -25,13 +28,14 @@ void MPU9250_asukiaaa::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes
       Data[index++]=myWire->read();
     }
   }
+  return 0;
 }
 
-void MPU9250_asukiaaa::i2cWriteByte(uint8_t Address, uint8_t Register, uint8_t Data) {
+uint8_t MPU9250_asukiaaa::i2cWriteByte(uint8_t Address, uint8_t Register, uint8_t Data) {
   myWire->beginTransmission(Address);
   myWire->write(Register);
   myWire->write(Data);
-  myWire->endTransmission();
+  return myWire->endTransmission();
 }
 
 void MPU9250_asukiaaa::setWire(TwoWire* wire) {
@@ -40,8 +44,8 @@ void MPU9250_asukiaaa::setWire(TwoWire* wire) {
 
 uint8_t MPU9250_asukiaaa::readId() {
   uint8_t id;
-  i2cRead(address, MPU9250_ADDR_WHOAMI, 1, &id);
-  return id;
+  uint8_t result = i2cRead(address, MPU9250_ADDR_WHOAMI, 1, &id);
+  return (result == 0) ? id : 0;
 }
 
 void MPU9250_asukiaaa::beginAccel(uint8_t mode) {
@@ -112,8 +116,8 @@ float MPU9250_asukiaaa::magHorizDirection() {
   return atan2(magX(), magY()) * 180 / Pi;
 }
 
-void MPU9250_asukiaaa::magUpdate() {
-  i2cRead(AK8963_ADDRESS, AK8963_RA_HXL, 7, magBuf);
+uint8_t MPU9250_asukiaaa::magUpdate() {
+  return i2cRead(AK8963_ADDRESS, AK8963_RA_HXL, 7, magBuf);
 }
 
 int16_t MPU9250_asukiaaa::magGet(uint8_t highIndex, uint8_t lowIndex) {
@@ -136,8 +140,8 @@ float MPU9250_asukiaaa::magZ() {
   return adjustMagValue(magGet(5, 4), magZAdjust) + magZOffset;
 }
 
-void MPU9250_asukiaaa::accelUpdate() {
-  i2cRead(address, MPU9250_ADDR_ACCEL_XOUT_H, 6, accelBuf);
+uint8_t MPU9250_asukiaaa::accelUpdate() {
+  return i2cRead(address, MPU9250_ADDR_ACCEL_XOUT_H, 6, accelBuf);
 }
 
 float MPU9250_asukiaaa::accelGet(uint8_t highIndex, uint8_t lowIndex) {
@@ -184,8 +188,8 @@ void MPU9250_asukiaaa::beginGyro(uint8_t mode) {
   delay(10);
 }
 
-void MPU9250_asukiaaa::gyroUpdate() {
-  i2cRead(address, MPU9250_ADDR_GYRO_XOUT_H, 6, gyroBuf);
+uint8_t MPU9250_asukiaaa::gyroUpdate() {
+  return i2cRead(address, MPU9250_ADDR_GYRO_XOUT_H, 6, gyroBuf);
 }
 
 float MPU9250_asukiaaa::gyroGet(uint8_t highIndex, uint8_t lowIndex) {

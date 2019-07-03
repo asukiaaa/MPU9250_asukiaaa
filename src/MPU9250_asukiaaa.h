@@ -39,21 +39,21 @@ class MPU9250_asukiaaa {
   uint8_t readId();
 
   void beginAccel(uint8_t mode = ACC_FULL_SCALE_16_G);
-  void accelUpdate();
+  uint8_t accelUpdate();
   float accelX();
   float accelY();
   float accelZ();
   float accelSqrt();
 
   void beginGyro(uint8_t mode = GYRO_FULL_SCALE_2000_DPS);
-  void gyroUpdate();
+  uint8_t gyroUpdate();
   float gyroX();
   float gyroY();
   float gyroZ();
 
   void beginMag(uint8_t mode = MAG_MODE_CONTINUOUS_8HZ);
   void magSetMode(uint8_t mode);
-  void magUpdate();
+  uint8_t magUpdate();
   float magX();
   float magY();
   float magZ();
@@ -74,8 +74,8 @@ class MPU9250_asukiaaa {
   void magEnableSlaveMode();
   void magReadAdjustValues();
   void magWakeup();
-  void i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data);
-  void i2cWriteByte(uint8_t Address, uint8_t Register, uint8_t Data);
+  uint8_t i2cRead(uint8_t Address, uint8_t Register, uint8_t Nbytes, uint8_t* Data);
+  uint8_t i2cWriteByte(uint8_t Address, uint8_t Register, uint8_t Data);
 };
 
 #endif
