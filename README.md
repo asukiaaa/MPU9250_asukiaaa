@@ -136,11 +136,14 @@ Warning: Offset value changes by temperature or some reason. If you want to get 
 Example about auto calibration (calculating offset values) is [here](https://github.com/asukiaaa/MPU9250_asukiaaa/blob/master/examples/GetMagOffset/GetMagOffset.ino).
 
 ## With customizable Wire
-For ESP8266, ESP32 and so on.
+For ESP32 and so on.
 
 ```c
+#define SDA_PIN 21
+#define SCL_PIN 22
+
 void setup() {
-  Wire.begin(26, 25); //sda, scl
+  Wire.begin(SDA_PIN, SCL_PIN);
   mySensor.setWire(&Wire);
 }
 ```

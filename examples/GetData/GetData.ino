@@ -16,7 +16,7 @@ void setup() {
   Serial.println("started");
 
 #ifdef _ESP32_HAL_I2C_H_ // For ESP32
-  Wire.begin(SDA_PIN, SCL_PIN); // SDA, SCL
+  Wire.begin(SDA_PIN, SCL_PIN);
 #else
   Wire.begin();
 #endif
