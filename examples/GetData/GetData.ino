@@ -15,11 +15,9 @@ void setup() {
 
 #ifdef _ESP32_HAL_I2C_H_ // For ESP32
   Wire.begin(SDA_PIN, SCL_PIN);
-#else
-  Wire.begin();
+  mySensor.setWire(&Wire);
 #endif
 
-  mySensor.setWire(&Wire);
   mySensor.beginAccel();
   mySensor.beginGyro();
   mySensor.beginMag();

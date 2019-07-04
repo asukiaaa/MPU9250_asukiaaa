@@ -46,7 +46,15 @@ uint8_t MPU9250_asukiaaa::readId(uint8_t *id) {
   return i2cRead(address, MPU9250_ADDR_WHOAMI, 1, id);
 }
 
+void MPU9250_asukiaaa::beginWireIfNull() {
+  if (myWire == NULL) {
+    myWire = &Wire;
+    myWire->begin();
+  }
+}
+
 void MPU9250_asukiaaa::beginAccel(uint8_t mode) {
+  beginWireIfNull();
   switch(mode) {
   case ACC_FULL_SCALE_2_G:
     accelRange = 2.0;
@@ -78,6 +86,7 @@ void MPU9250_asukiaaa::magReadAdjustValues() {
 }
 
 void MPU9250_asukiaaa::beginMag(uint8_t mode) {
+  beginWireIfNull();
   magWakeup();
   magEnableSlaveMode();
 
@@ -166,6 +175,7 @@ float MPU9250_asukiaaa::accelSqrt() {
 }
 
 void MPU9250_asukiaaa::beginGyro(uint8_t mode) {
+  beginWireIfNull();
   switch (mode) {
   case GYRO_FULL_SCALE_250_DPS:
     gyroRange = 250.0;

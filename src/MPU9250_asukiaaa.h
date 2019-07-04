@@ -34,7 +34,8 @@ class MPU9250_asukiaaa {
     gyroRange(0),
     magXOffset(0),
     magYOffset(0),
-    magZOffset(0) {};
+    magZOffset(0),
+    myWire(NULL) {};
   void setWire(TwoWire *wire);
   uint8_t readId(uint8_t *id);
 
@@ -68,6 +69,7 @@ class MPU9250_asukiaaa {
   float gyroRange;
   uint8_t magBuf[7];
   uint8_t magXAdjust, magYAdjust, magZAdjust;
+  void beginWireIfNull();
   float accelGet(uint8_t highIndex, uint8_t lowIndex);
   float gyroGet(uint8_t highIndex, uint8_t lowIndex);
   int16_t magGet(uint8_t highIndex, uint8_t lowIndex);
