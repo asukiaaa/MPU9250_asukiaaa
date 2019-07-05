@@ -22,10 +22,11 @@ uint8_t MPU9250_asukiaaa::i2cRead(uint8_t Address, uint8_t Register, uint8_t Nby
   }
 
   myWire->requestFrom(Address, Nbytes);
-  uint8_t index=0;
+  uint8_t index = 0;
   while (myWire->available()) {
+    uint8_t d = myWire->read();
     if (index < Nbytes) {
-      Data[index++]=myWire->read();
+      Data[index++] = d;
     }
   }
   return 0;
