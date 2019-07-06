@@ -9,8 +9,8 @@ MPU9250_asukiaaa mySensor;
 float aX, aY, aZ, aSqrt, gX, gY, gZ, mDirection, mX, mY, mZ;
 
 void setup() {
-  while(!Serial);
   Serial.begin(115200);
+  while(!Serial);
   Serial.println("started");
 
 #ifdef _ESP32_HAL_I2C_H_ // For ESP32
