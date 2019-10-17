@@ -1,0 +1,58 @@
+#######################################
+# Syntax Coloring Map for HaLakeKit
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MPU9250_asukiaaa	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setWire	KEYWORD2
+readId	KEYWORD2
+beginAccel	KEYWORD2
+accelUpdate	KEYWORD2
+accelX	KEYWORD2
+accelY	KEYWORD2
+accelZ	KEYWORD2
+accelSqrt	KEYWORD2
+beginGyro	KEYWORD2
+gyroUpdate	KEYWORD2
+gyroX	KEYWORD2
+gyroY	KEYWORD2
+gyroZ	KEYWORD2
+beginMag	KEYWORD2
+magSetMode	KEYWORD2
+magUpdate	KEYWORD2
+magX	KEYWORD2
+magY	KEYWORD2
+magZ	KEYWORD2
+magHorizDirection	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+MPU9250_ADDRESS_AD0_LOW	KEYWORD3
+MPU9250_ADDRESS_AD0_HIGH	KEYWORD3
+ACC_FULL_SCALE_2_G	KEYWORD3
+ACC_FULL_SCALE_4_G	KEYWORD3
+ACC_FULL_SCALE_8_G	KEYWORD3
+ACC_FULL_SCALE_16_G	KEYWORD3
+
+GYRO_FULL_SCALE_250_DPS	KEYWORD3
+GYRO_FULL_SCALE_500_DPS	KEYWORD3
+GYRO_FULL_SCALE_1000_DPS	KEYWORD3
+GYRO_FULL_SCALE_2000_DPS	KEYWORD3
+
+MAG_MODE_POWERDOWN	KEYWORD3
+MAG_MODE_SINGLE	KEYWORD3
+MAG_MODE_CONTINUOUS_8HZ	KEYWORD3
+MAG_MODE_EXTERNAL	KEYWORD3
+MAG_MODE_CONTINUOUS_100HZ	KEYWORD3
+MAG_MODE_SELFTEST	KEYWORD3
+MAG_MODE_FUSEROM	KEYWORD3
