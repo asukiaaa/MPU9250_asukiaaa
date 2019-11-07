@@ -61,9 +61,9 @@ void setMagMinMaxAndSetOffset(MPU9250_asukiaaa* sensor, int seconds) {
     if (magZ < magZMin) magZMin = magZ;
   }
 
-  sensor->magXOffset = - (magXMax - magXMin) / 2;
-  sensor->magYOffset = - (magYMax - magYMin) / 2;
-  sensor->magZOffset = - (magZMax - magZMin) / 2;
+  sensor->magXOffset = - (magXMax + magXMin) / 2;
+  sensor->magYOffset = - (magYMax + magYMin) / 2;
+  sensor->magZOffset = - (magZMax + magZMin) / 2;
 }
 
 void loop() {
