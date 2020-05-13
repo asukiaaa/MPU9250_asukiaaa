@@ -28,14 +28,15 @@ class MPU9250_asukiaaa {
   public:
   int16_t magXOffset, magYOffset, magZOffset;
 
-  MPU9250_asukiaaa(uint8_t address = MPU9250_ADDRESS_AD0_LOW):
-    address(address),
-    accelRange(0),
-    gyroRange(0),
-    magXOffset(0),
-    magYOffset(0),
-    magZOffset(0),
-    myWire(NULL) {};
+  MPU9250_asukiaaa(uint8_t address = MPU9250_ADDRESS_AD0_LOW) {
+    this->address = address;
+    accelRange = 0;
+    gyroRange  = 0;
+    magXOffset = 0;
+    magYOffset = 0;
+    magZOffset = 0;
+    myWire = NULL;
+  }
   void setWire(TwoWire *wire);
   uint8_t readId(uint8_t *id);
 
