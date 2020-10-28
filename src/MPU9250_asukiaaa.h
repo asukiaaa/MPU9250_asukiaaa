@@ -46,12 +46,14 @@ class MPU9250_asukiaaa {
   float accelY();
   float accelZ();
   float accelSqrt();
+  uint8_t* getAccelBuffer();
 
   void beginGyro(uint8_t mode = GYRO_FULL_SCALE_2000_DPS);
   uint8_t gyroUpdate();
   float gyroX();
   float gyroY();
   float gyroZ();
+  uint8_t* getGyroBuffer();
 
   void beginMag(uint8_t mode = MAG_MODE_CONTINUOUS_8HZ);
   void magSetMode(uint8_t mode);
@@ -60,6 +62,7 @@ class MPU9250_asukiaaa {
   float magY();
   float magZ();
   float magHorizDirection();
+  uint8_t* getMagBuffer();
 
   private:
   TwoWire* myWire;
