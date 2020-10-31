@@ -35,15 +35,7 @@ class MPU9250_asukiaaa {
   uint8_t gyroBuff[MPU9250_BUFF_LEN_GYRO];
   uint8_t magBuff[MPU9250_BUFF_LEN_MAG];
 
-  MPU9250_asukiaaa(uint8_t address = MPU9250_ADDRESS_AD0_LOW) {
-    this->address = address;
-    accelRange = 0;
-    gyroRange  = 0;
-    magXOffset = 0;
-    magYOffset = 0;
-    magZOffset = 0;
-    myWire = NULL;
-  }
+  MPU9250_asukiaaa(uint8_t address = MPU9250_ADDRESS_AD0_LOW);
   void setWire(TwoWire *wire);
   uint8_t readId(uint8_t *id);
 

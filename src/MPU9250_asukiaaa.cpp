@@ -39,6 +39,16 @@ uint8_t MPU9250_asukiaaa::i2cWriteByte(uint8_t Address, uint8_t Register, uint8_
   return myWire->endTransmission();
 }
 
+MPU9250_asukiaaa::MPU9250_asukiaaa(uint8_t address):
+  address(address) {
+  accelRange = 0;
+  gyroRange  = 0;
+  magXOffset = 0;
+  magYOffset = 0;
+  magZOffset = 0;
+  myWire = NULL;
+}
+
 void MPU9250_asukiaaa::setWire(TwoWire* wire) {
   myWire = wire;
 }
