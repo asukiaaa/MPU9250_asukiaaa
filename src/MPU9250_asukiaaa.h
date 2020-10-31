@@ -31,9 +31,9 @@
 class MPU9250_asukiaaa {
   public:
   int16_t magXOffset, magYOffset, magZOffset;
-  uint8_t accelBuf[MPU9250_BUFF_LEN_ACCEL];
-  uint8_t gyroBuf[MPU9250_BUFF_LEN_GYRO];
-  uint8_t magBuf[MPU9250_BUFF_LEN_MAG];
+  uint8_t accelBuff[MPU9250_BUFF_LEN_ACCEL];
+  uint8_t gyroBuff[MPU9250_BUFF_LEN_GYRO];
+  uint8_t magBuff[MPU9250_BUFF_LEN_MAG];
 
   MPU9250_asukiaaa(uint8_t address = MPU9250_ADDRESS_AD0_LOW) {
     this->address = address;

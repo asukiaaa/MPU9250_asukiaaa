@@ -125,11 +125,11 @@ float MPU9250_asukiaaa::magHorizDirection() {
 }
 
 uint8_t MPU9250_asukiaaa::magUpdate() {
-  return i2cRead(AK8963_ADDRESS, AK8963_RA_HXL, 7, magBuf);
+  return i2cRead(AK8963_ADDRESS, AK8963_RA_HXL, 7, magBuff);
 }
 
 int16_t MPU9250_asukiaaa::magGet(uint8_t highIndex, uint8_t lowIndex) {
-  return (((int16_t) magBuf[highIndex]) << 8) | magBuf[lowIndex];
+  return (((int16_t) magBuff[highIndex]) << 8) | magBuff[lowIndex];
 }
 
 float adjustMagValue(int16_t value, uint8_t adjust) {
@@ -149,11 +149,11 @@ float MPU9250_asukiaaa::magZ() {
 }
 
 uint8_t MPU9250_asukiaaa::accelUpdate() {
-  return i2cRead(address, MPU9250_ADDR_ACCEL_XOUT_H, 6, accelBuf);
+  return i2cRead(address, MPU9250_ADDR_ACCEL_XOUT_H, 6, accelBuff);
 }
 
 float MPU9250_asukiaaa::accelGet(uint8_t highIndex, uint8_t lowIndex) {
-  int16_t v = ((int16_t) accelBuf[highIndex]) << 8 | accelBuf[lowIndex];
+  int16_t v = ((int16_t) accelBuff[highIndex]) << 8 | accelBuff[lowIndex];
   return ((float) -v) * accelRange / (float) 0x8000; // (float) 0x8000 == 32768.0
 }
 
@@ -198,11 +198,11 @@ void MPU9250_asukiaaa::beginGyro(uint8_t mode) {
 }
 
 uint8_t MPU9250_asukiaaa::gyroUpdate() {
-  return i2cRead(address, MPU9250_ADDR_GYRO_XOUT_H, 6, gyroBuf);
+  return i2cRead(address, MPU9250_ADDR_GYRO_XOUT_H, 6, gyroBuff);
 }
 
 float MPU9250_asukiaaa::gyroGet(uint8_t highIndex, uint8_t lowIndex) {
-  int16_t v = ((int16_t) gyroBuf[highIndex]) << 8 | gyroBuf[lowIndex];
+  int16_t v = ((int16_t) gyroBuff[highIndex]) << 8 | gyroBuff[lowIndex];
   return ((float) -v) * gyroRange / (float) 0x8000;
 }
 
