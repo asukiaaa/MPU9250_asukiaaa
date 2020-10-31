@@ -30,6 +30,7 @@
 
 class MPU9250_asukiaaa {
   public:
+  const uint8_t address;
   int16_t magXOffset, magYOffset, magZOffset;
   uint8_t accelBuff[MPU9250_BUFF_LEN_ACCEL];
   uint8_t gyroBuff[MPU9250_BUFF_LEN_GYRO];
@@ -62,7 +63,6 @@ class MPU9250_asukiaaa {
 
   private:
   TwoWire* myWire;
-  uint8_t address;
   float accelRange;
   float gyroRange;
   uint8_t magXAdjust, magYAdjust, magZAdjust;
