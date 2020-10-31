@@ -148,10 +148,6 @@ float MPU9250_asukiaaa::magZ() {
   return adjustMagValue(magGet(5, 4), magZAdjust) + magZOffset;
 }
 
-uint8_t* MPU9250_asukiaaa::getMagBuffer() {
-  return magBuf;
-}
-
 uint8_t MPU9250_asukiaaa::accelUpdate() {
   return i2cRead(address, MPU9250_ADDR_ACCEL_XOUT_H, 6, accelBuf);
 }
@@ -177,10 +173,6 @@ float MPU9250_asukiaaa::accelSqrt() {
   return sqrt(pow(accelGet(0, 1), 2) +
               pow(accelGet(2, 3), 2) +
               pow(accelGet(4, 5), 2));
-}
-
-uint8_t* MPU9250_asukiaaa::getAccelBuffer() {
-  return accelBuf;
 }
 
 void MPU9250_asukiaaa::beginGyro(uint8_t mode) {
@@ -224,8 +216,4 @@ float MPU9250_asukiaaa::gyroY() {
 
 float MPU9250_asukiaaa::gyroZ() {
   return gyroGet(4, 5);
-}
-
-uint8_t* MPU9250_asukiaaa::getGyroBuffer() {
-  return gyroBuf;
 }

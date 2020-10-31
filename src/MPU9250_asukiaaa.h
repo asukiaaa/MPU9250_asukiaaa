@@ -24,9 +24,16 @@
 #define MAG_MODE_SELFTEST         0x8
 #define MAG_MODE_FUSEROM          0xF
 
+#define MPU9250_BUFF_LEN_ACCEL 6
+#define MPU9250_BUFF_LEN_GYRO  6
+#define MPU9250_BUFF_LEN_MAG   7
+
 class MPU9250_asukiaaa {
   public:
   int16_t magXOffset, magYOffset, magZOffset;
+  uint8_t accelBuf[MPU9250_BUFF_LEN_ACCEL];
+  uint8_t gyroBuf[MPU9250_BUFF_LEN_GYRO];
+  uint8_t magBuf[MPU9250_BUFF_LEN_MAG];
 
   MPU9250_asukiaaa(uint8_t address = MPU9250_ADDRESS_AD0_LOW) {
     this->address = address;
@@ -46,14 +53,12 @@ class MPU9250_asukiaaa {
   float accelY();
   float accelZ();
   float accelSqrt();
-  uint8_t* getAccelBuffer();
 
   void beginGyro(uint8_t mode = GYRO_FULL_SCALE_2000_DPS);
   uint8_t gyroUpdate();
   float gyroX();
   float gyroY();
   float gyroZ();
-  uint8_t* getGyroBuffer();
 
   void beginMag(uint8_t mode = MAG_MODE_CONTINUOUS_8HZ);
   void magSetMode(uint8_t mode);
@@ -62,16 +67,12 @@ class MPU9250_asukiaaa {
   float magY();
   float magZ();
   float magHorizDirection();
-  uint8_t* getMagBuffer();
 
   private:
   TwoWire* myWire;
   uint8_t address;
-  uint8_t accelBuf[6];
   float accelRange;
-  uint8_t gyroBuf[6];
   float gyroRange;
-  uint8_t magBuf[7];
   uint8_t magXAdjust, magYAdjust, magZAdjust;
   void beginWireIfNull();
   float accelGet(uint8_t highIndex, uint8_t lowIndex);
