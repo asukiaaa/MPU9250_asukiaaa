@@ -30,13 +30,17 @@ void setup() {
 
 void loop() {
   uint8_t sensorId;
-  if (mySensor.readId(&sensorId) == 0) {
+  int result;
+
+  result = mySensor.readId(&sensorId);
+  if (result == 0) {
     Serial.println("sensorId: " + String(sensorId));
   } else {
-    Serial.println("Cannot read sensorId");
+    Serial.println("Cannot read sensorId " + String(result));
   }
 
-  if (mySensor.accelUpdate() == 0) {
+  result = mySensor.accelUpdate();
+  if (result == 0) {
     aX = mySensor.accelX();
     aY = mySensor.accelY();
     aZ = mySensor.accelZ();
@@ -46,10 +50,11 @@ void loop() {
     Serial.println("accelZ: " + String(aZ));
     Serial.println("accelSqrt: " + String(aSqrt));
   } else {
-    Serial.println("Cannod read accel values");
+    Serial.println("Cannod read accel values " + String(result));
   }
 
-  if (mySensor.gyroUpdate() == 0) {
+  result = mySensor.gyroUpdate();
+  if (result == 0) {
     gX = mySensor.gyroX();
     gY = mySensor.gyroY();
     gZ = mySensor.gyroZ();
@@ -57,10 +62,11 @@ void loop() {
     Serial.println("gyroY: " + String(gY));
     Serial.println("gyroZ: " + String(gZ));
   } else {
-    Serial.println("Cannot read gyro values");
+    Serial.println("Cannot read gyro values " + String(result));
   }
 
-  if (mySensor.magUpdate() == 0) {
+  result = mySensor.magUpdate();
+  if (result == 0) {
     mX = mySensor.magX();
     mY = mySensor.magY();
     mZ = mySensor.magZ();
@@ -70,7 +76,7 @@ void loop() {
     Serial.println("magZ: " + String(mZ));
     Serial.println("horizontal direction: " + String(mDirection));
   } else {
-    Serial.println("Cannot read mag values");
+    Serial.println("Cannot read mag values " + String(result));
   }
 
   Serial.println("at " + String(millis()) + "ms");
