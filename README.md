@@ -90,6 +90,17 @@ void loop() {
 }
 ```
 
+If you cannot get values by calling magUpdate, try calling beginMag and magUpdate again.
+```c
+void loop() {
+  auto result = mySensor.magUpdate();
+  if (result != 0) {
+    mySensor.beginMag();
+    result = mySensor.magUpdate();
+  }
+}
+```
+
 If you get values of sensor like this..
 
 Name | Max | Min

@@ -66,6 +66,11 @@ void loop() {
   }
 
   result = mySensor.magUpdate();
+  if (result != 0) {
+    Serial.println("cannot read mag so call begin again");
+    mySensor.beginMag();
+    result = mySensor.magUpdate();
+  }
   if (result == 0) {
     mX = mySensor.magX();
     mY = mySensor.magY();
