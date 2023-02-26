@@ -129,9 +129,8 @@ void MPU9250_asukiaaa::magEnableSlaveMode() {
   delay(10);
 }
 
-const float Pi = 3.14159;
-
 float MPU9250_asukiaaa::magHorizDirection() {
+  const float Pi = 3.14159;
   return atan2(magX(), magY()) * 180 / Pi;
 }
 
